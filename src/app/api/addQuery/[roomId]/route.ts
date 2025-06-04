@@ -1,7 +1,7 @@
 import { getDB } from "@/app/lib/database";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/lib/authOption";
 import { nanoid } from "nanoid";
 
 export async function POST(request: Request) {
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
             { $push: { queries: queries } }
         );
 
-        return NextResponse.json({ success: true }, { status: 200 });
+        return NextResponse.json({ success: true,queries: queries }, { status: 200 });
     } catch (error) {
         console.error("Error adding query:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

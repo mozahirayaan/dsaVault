@@ -12,7 +12,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !proce
   throw new Error("Missing required environment variables for auth");
 }
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     providers: [
         GoogleProvider({
@@ -55,9 +55,3 @@ const authOptions: NextAuthOptions = {
     },
   },
 };
-
-// Pass the configuration to NextAuth
-const handler = NextAuth(authOptions);
-
-
-export { handler as GET, handler as POST };

@@ -2,7 +2,7 @@ import { getDB } from "@/app/lib/database";
 import { NextResponse } from "next/server";
 import { nanoid } from "nanoid";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/lib/authOption";
 
 export async function POST(request: Request) {
   interface UserLocal {
