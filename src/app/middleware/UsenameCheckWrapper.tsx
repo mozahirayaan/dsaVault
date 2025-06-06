@@ -22,7 +22,7 @@ export default function UsernameCheckWrapper({ children }: { children: React.Rea
           if (!response.data || !response.data.userDetails) {
             return ;
           }
-          if(!response.data.userDetails.leetcode&&!response.data.userDetails.codeforces) {
+          if(!response.data.userDetails.leetcode||!response.data.userDetails.codeforces) {
             router.push('/userInfo'); // Redirect to setup if no user details
             console.log('User details:', response.data.userDetails);
           }

@@ -5,6 +5,7 @@ export default function Navbar() {
   const items = [
     { name: "Dashboard", href: "/Dashboard" },
     { name: "Room", href: "/Room" },
+    { name: "Add Username", href: "/userInfo" },
     { name: "Contribute", href: "https://github.com/mozahirayaan/dsaVault" },
   ];
 

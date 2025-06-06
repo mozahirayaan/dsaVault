@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
@@ -11,6 +11,29 @@ export default function UsernamesForm() {
   const [messageCF, setMessageCF] = useState("");
   const [loadingLC, setLoadingLC] = useState(false);
   const [loadingCF, setLoadingCF] = useState(false);
+
+  useEffect(()=>{
+    const fetchUser=async()=>{
+      try{
+        const response=await axios.get('/api/getUserDetail');
+      if(!response||!response.data || !response.data.userDetails){
+        return;
+      }
+
+      if(response.data.userDetails.leetcode){
+        setLeetcode(response.data.userDetails.leetcode);
+      }
+      if(response.data.userDetails.codeforces){
+        setCodeforces(response.data.userDetails.codeforces);
+      }
+      console.log(response.data.userDetails.leetcode);
+      }
+      catch(error){
+        console.log(error);
+      }
+    }
+    fetchUser();
+  },[])
 
   const handleSubmitLeetcode = async (e: any) => {
     e.preventDefault();
@@ -41,13 +64,13 @@ export default function UsernamesForm() {
     } catch {
       setMessageCF("❌ Failed to save check your Codeforces username.");
     }
-    setLoadingCF(false);
+    setLoadingCF(false)
   };
 
   return (<>
   <Navbar />
     <div className="mt-32 max-w-md mx-auto p-6 text-black bg-white rounded-2xl shadow-lg space-y-6">
-      <h2 className="text-2xl font-semibold text-center text-gray-800">Link both of your profiles to proceed</h2>
+      <h2 className="text-2xl font-semibold text-center text-gray-800">You must link both of your profiles to proceed</h2>
 
       {/* LeetCode Form */}
       <form onSubmit={handleSubmitLeetcode} className="space-y-4">
@@ -58,7 +81,7 @@ export default function UsernamesForm() {
             value={leetcode}
             onChange={(e) => setLeetcode(e.target.value)}
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
-            placeholder="e.g. johndoe123"
+            placeholder="e.g. tourist"
             required
           />
         </label>
@@ -81,7 +104,7 @@ export default function UsernamesForm() {
             value={codeforces}
             onChange={(e) => setCodeforces(e.target.value)}
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="e.g. cf_master"
+            placeholder="e.g. jiangly"
             required
           />
         </label>
